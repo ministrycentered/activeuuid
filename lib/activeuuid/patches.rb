@@ -23,18 +23,12 @@ module ActiveUUID
           type_cast_without_uuid(value)
         end
 
-        def type_cast_code_with_uuid(var_name)
-          return "UUIDTools::UUID.serialize(#{var_name})" if type == :uuid
-          type_cast_code_without_uuid(var_name)
-        end
-
         def simplified_type_with_uuid(field_type)
           return :uuid if field_type == 'binary(16)' || field_type == 'binary(16,0)'
           simplified_type_without_uuid(field_type)
         end
 
         alias_method_chain :type_cast, :uuid
-        alias_method_chain :type_cast_code, :uuid
         alias_method_chain :simplified_type, :uuid
       end
     end
